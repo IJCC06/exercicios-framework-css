@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Legend of Zelda: Ocarina of Time — Correio de Hyrule</title>
+
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Materialize CSS via CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+  <style>
+    :root {
+      --hyrule-dark: #0b2414;
+      --hyrule-green: #1b5e20;
+      --hyrule-leaf: #2e7d32;
+      --triforce-gold: #d4af37;
+      --triforce-light: #ffe082;
+      --parchment: #f9f6ee;
+      --navi-blue: #29b6f6;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--parchment);
+      color: #1f2922;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    h1, h2, h3, h4, h5, .brand-logo, .zelda-title {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.5px;
+    }
+
+    /* Navbar */
+    nav.hyrule-nav {
+      background: linear-gradient(90deg, var(--hyrule-dark) 0%, var(--hyrule-green) 50%, var(--hyrule-dark) 100%);
+      border-bottom: 3px solid var(--triforce-gold);
+    }
+
+    nav.hyrule-nav .brand-logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--triforce-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 12px;
+    }
+
+    nav.hyrule-nav ul a {
+      color: #f1f8e9;
+      font-weight: 700;
+      transition: color 0.25s ease;
+    }
+
+    nav.hyrule-nav ul a:hover {
+      color: var(--triforce-light);
+      background-color: rgba(212, 175, 55, 0.15);
+    }
+
+    .triforce-icon {
+      width: 28px;
+      height: 28px;
+      fill: var(--triforce-gold);
+      filter: drop-shadow(0 0 4px rgba(255, 224, 130, 0.6));
+    }
+
+    /* Hero Banner */
+    .hero-hyrule {
+      background:
+        radial-gradient(circle at top right, rgba(41, 182, 246, 0.18), transparent 45%),
+        linear-gradient(135deg, #0b2414 0%, #154721 60%, #1f5c2e 100%);
+      color: #fff;
+      padding: 48px 0 42px;
+      border-bottom: 4px solid var(--triforce-gold);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-hyrule h1 {
+      font-size: 2.4rem;
+      margin-top: 0;
+      color: var(--triforce-light);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #dcedc8;
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .badge-ocarina {
+      display: inline-block;
+      background-color: rgba(212, 175, 55, 0.2);
+      border: 1px solid var(--triforce-gold);
+      color: var(--triforce-light);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    /* Lore Cards */
+    .lore-card {
+      border-top: 4px solid var(--triforce-gold);
+      border-radius: 8px;
+      height: 100%;
+    }
+
+    .lore-card .card-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: var(--hyrule-dark);
+      font-size: 1.2rem;
+    }
+
+    /* Form Card */
+    .cep-card {
+      border-radius: 10px;
+      border: 2px solid var(--triforce-gold);
+      background-color: #ffffff;
+      box-shadow: 0 10px 28px rgba(11, 36, 20, 0.14);
+      overflow: hidden;
+    }
+
+    .cep-card-header {
+      background: linear-gradient(90deg, var(--hyrule-dark), var(--hyrule-green));
+      color: var(--triforce-light);
+      padding: 20px 24px;
+      border-bottom: 2px solid var(--triforce-gold);
+    }
+
+    .cep-card-header h2 {
+      margin: 0;
+      font-size: 1.55rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cep-card-header p {
+      margin: 6px 0 0;
+      color: #e8f5e9;
+      font-size: 0.95rem;
+    }
+
+    /* Custom Materialize Input Colors */
+    .input-field input:focus + label {
+      color: var(--hyrule-green) !important;
+    }
+
+    .input-field input:focus {
+      border-bottom: 1px solid var(--hyrule-green) !important;
+      box-shadow: 0 1px 0 0 var(--hyrule-green) !important;
+    }
+
+    .input-field .prefix.active {
+      color: var(--hyrule-green) !important;
+    }
+
+    .navi-hint {
+      background-color: #e1f5fe;
+      border-left: 4px solid var(--navi-blue);
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin-bottom: 22px;
+      font-size: 0.92rem;
+      color: #01579b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-hyrule {
+      background-color: var(--hyrule-green);
+      color: var(--triforce-light);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      border: 1px solid var(--triforce-gold);
+    }
+
+    .btn-hyrule:hover, .btn-hyrule:focus {
+      background-color: var(--hyrule-dark);
+    }
+
+    /* Footer */
+    footer.page-footer.hyrule-footer {
+      background-color: var(--hyrule-dark);
+      border-top: 3px solid var(--triforce-gold);
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar no Topo -->
+  <header>
+    <nav class="hyrule-nav">
+      <div class="nav-wrapper container">
+        <a href="#topo" class="brand-logo">
+          <!-- Ícone SVG da Triforce -->
+          <svg class="triforce-icon" viewBox="0 0 100 90" aria-hidden="true">
+            <polygon points="50,5 27,45 73,45" />
+            <polygon points="27,45 4,85 50,85" />
+            <polygon points="73,45 50,85 96,85" />
+          </svg>
+          <span>Ocarina of Time</span>
+        </a>
+        <a href="#" data-target="mobile-menu" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#historia"><i class="material-icons left">auto_stories</i>A Lenda</a></li>
+          <li><a href="#reliquias"><i class="material-icons left">music_note</i>Relíquias</a></li>
+          <li><a href="#correio-cep"><i class="material-icons left">local_post_office</i>Correio de Hyrule</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Menu Mobile -->
+    <ul class="sidenav" id="mobile-menu">
+      <li><a href="#historia"><i class="material-icons">auto_stories</i>A Lenda</a></li>
+      <li><a href="#reliquias"><i class="material-icons">music_note</i>Relíquias</a></li>
+      <li><a href="#correio-cep"><i class="material-icons">local_post_office</i>Correio de Hyrule</a></li>
+    </ul>
+  </header>
+
+  <main id="topo">
+    <!-- Hero Section -->
+    <section class="hero-hyrule center-align">
+      <div class="container">
+        <span class="badge-ocarina">Nintendo 64 • 1998 • Reino de Hyrule</span>
+        <h1>The Legend of Zelda: Ocarina of Time</h1>
+        <p class="hero-subtitle">
+          Embarque na jornada épica de Link através do tempo para impedir que Ganondorf conquiste o Reino Sagrado.
+          Explore os confins de Hyrule e utilize o <strong>Correio Real</strong> abaixo para localizar qualquer destino pelo CEP!
+        </p>
+      </div>
+    </section>
+
+    <!-- Seção sobre Ocarina of Time -->
+    <section id="historia" class="container" style="margin-top: 36px;">
+      <div class="row" id="reliquias">
+        <div class="col s12 m4">
+          <div class="card lore-card">
+            <div class="card-content">
+              <span class="card-title"><i class="material-icons left amber-text text-darken-3">music_note</i>Ocarina do Tempo</span>
+              <p>
+                Instrumento sagrado confiado pela Princesa Zelda a Link. Suas melodias controlam o fluxo do dia, invocam tempestades e abrem os portões do Templo do Tempo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="card lore-card">
+            <div class="card-content">
+              <span class="card-title"><i class="material-icons left green-text text-darken-3">security</i>Master Sword</span>
+              <p>
+                A Lâmina da Ruína do Mal repousa no pedestal do Templo do Tempo, selando o herói por sete anos até que ele esteja pronto para enfrentar o Rei dos Gerudo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="card lore-card">
+            <div class="card-content">
+              <span class="card-title"><i class="material-icons left light-blue-text text-darken-2">explore</i>Terras de Hyrule</span>
+              <p>
+                Da Floresta Kokiri até a Montanha da Morte, o Domínio Zora e o Vale Gerudo — todo mensageiro de Hyrule precisa de coordenadas exatas para entregar suas cartas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário de Consulta de CEP -->
+    <section id="correio-cep" class="container" style="margin-top: 24px; margin-bottom: 48px;">
+      <div class="row">
+        <div class="col s12 l10 offset-l1">
+          <div class="cep-card">
+            <div class="cep-card-header">
+              <h2><i class="material-icons">markunread_mailbox</i>Correio Real de Hyrule — Busca por CEP</h2>
+              <p>Informe o CEP de destino e pressione <strong>ENTER</strong> para preencher o endereço automaticamente.</p>
+            </div>
+
+            <!-- Barra de carregamento -->
+            <div id="loading-bar" class="progress green lighten-4" style="margin: 0; display: none;">
+              <div class="indeterminate green darken-3"></div>
+            </div>
+
+            <div class="card-content" style="padding: 28px;">
+              <div class="navi-hint">
+                <i class="material-icons">auto_awesome</i>
+                <span><strong>Navi diz:</strong> "Hey! Listen! Digite o CEP no primeiro campo e aperte a tecla <strong>ENTER</strong> no teclado para consultar!"</span>
+              </div>
+
+              <form id="form-cep" autocomplete="off">
+                <div class="row">
+                  <!-- Campo CEP -->
+                  <div class="input-field col s12 m4">
+                    <i class="material-icons prefix">pin_drop</i>
+                    <input id="cep" name="cep" type="text" maxlength="9" placeholder="00000-000" />
+                    <label for="cep" class="active">CEP (Pressione ENTER)</label>
+                    <span class="helper-text">Ex.: 01001-000 ou 13400-000</span>
+                  </div>
+
+                  <!-- Campo Endereço -->
+                  <div class="input-field col s12 m8">
+                    <i class="material-icons prefix">home</i>
+                    <input id="endereco" name="endereco" type="text" />
+                    <label for="endereco">Endereço</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- Campo Bairro -->
+                  <div class="input-field col s12 m5">
+                    <i class="material-icons prefix">map</i>
+                    <input id="bairro" name="bairro" type="text" />
+                    <label for="bairro">Bairro</label>
+                  </div>
+
+                  <!-- Campo Cidade -->
+                  <div class="input-field col s12 m5">
+                    <i class="material-icons prefix">location_city</i>
+                    <input id="cidade" name="cidade" type="text" />
+                    <label for="cidade">Cidade</label>
+                  </div>
+
+                  <!-- Campo Estado -->
+                  <div class="input-field col s12 m2">
+                    <i class="material-icons prefix">flag</i>
+                    <input id="estado" name="estado" type="text" maxlength="2" />
+                    <label for="estado">Estado</label>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 0; margin-top: 10px;">
+                  <div class="col s12 right-align">
+                    <button type="button" id="btn-limpar" class="btn-flat waves-effect waves-green">
+                      <i class="material-icons left">clear</i>Limpar Campos
+                    </button>
+                    <button type="button" id="btn-buscar" class="btn waves-effect waves-light btn-hyrule">
+                      <i class="material-icons left">search</i>Consultar CEP
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer hyrule-footer">
+    <div class="container">
+      <div class="row" style="margin-bottom: 12px;">
+        <div class="col s12 m8">
+          <h5 class="triforce-light" style="color: var(--triforce-light); font-size: 1.2rem;">
+            The Legend of Zelda: Ocarina of Time
+          </h5>
+          <p class="grey-text text-lighten-3" style="font-size: 0.9rem;">
+            Página temática desenvolvida com Materialize CSS (CDN) e consulta de endereços via API gratuita ViaCEP.
+          </p>
+        </div>
+        <div class="col s12 m4 right-align hide-on-small-only">
+          <p style="color: var(--triforce-light); font-family: 'Cinzel', serif; margin-top: 18px;">
+            ▲<br />▲ ▲
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container center-align">
+        Que a Triforce guie seu caminho por Hyrule!
+      </div>
+    </div>
+  </footer>
+
+  <!-- Materialize JS via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Inicializa menu mobile do Materialize
+      const sidenavs = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(sidenavs);
+
+      const form = document.getElementById('form-cep');
+      const cepInput = document.getElementById('cep');
+      const enderecoInput = document.getElementById('endereco');
+      const bairroInput = document.getElementById('bairro');
+      const cidadeInput = document.getElementById('cidade');
+      const estadoInput = document.getElementById('estado');
+      const loadingBar = document.getElementById('loading-bar');
+      const btnLimpar = document.getElementById('btn-limpar');
+      const btnBuscar = document.getElementById('btn-buscar');
+
+      // Evita submissão tradicional do formulário
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+      });
+
+      // Máscara simples de CEP (00000-000) enquanto digita
+      cepInput.addEventListener('input', function () {
+        let valor = cepInput.value.replace(/\D/g, '');
+        if (valor.length > 5) {
+          valor = valor.slice(0, 5) + '-' + valor.slice(5, 8);
+        }
+        cepInput.value = valor;
+      });
+
+      // Dispara a busca ao pressionar ENTER no campo CEP
+      cepInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          buscarCep();
+        }
+      });
+
+      // Também permite clicar no botão de consulta
+      btnBuscar.addEventListener('click', buscarCep);
+
+      // Limpar campos
+      btnLimpar.addEventListener('click', function () {
+        form.reset();
+        M.updateTextFields();
+        cepInput.focus();
+      });
+
+      async function buscarCep() {
+        const cepLimpo = cepInput.value.replace(/\D/g, '');
+
+        if (cepLimpo.length !== 8) {
+          M.toast({
+            html: '<i class="material-icons left">warning</i>Hey! Listen! Digite um CEP válido com 8 números.',
+            classes: 'amber darken-4 rounded'
+          });
+          return;
+        }
+
+        loadingBar.style.display = 'block';
+
+        try {
+          // API gratuita ViaCEP
+          const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+
+          if (!response.ok) {
+            throw new Error('Falha na comunicação com o serviço de CEP.');
+          }
+
+          const dados = await response.json();
+
+          if (dados.erro) {
+            limparCamposEndereco();
+            M.toast({
+              html: '<i class="material-icons left">error_outline</i>CEP não encontrado nos mapas de Hyrule!',
+              classes: 'red darken-3 rounded'
+            });
+            return;
+          }
+
+          // Preenche os campos do formulário
+          enderecoInput.value = dados.logradouro || '';
+          bairroInput.value = dados.bairro || '';
+          cidadeInput.value = dados.localidade || '';
+          estadoInput.value = dados.uf || '';
+
+          // Atualiza os labels flutuantes do Materialize
+          M.updateTextFields();
+
+          M.toast({
+            html: '<i class="material-icons left">check_circle</i>Endereço localizado com sucesso!',
+            classes: 'green darken-3 rounded'
+          });
+        } catch (error) {
+          M.toast({
+            html: '<i class="material-icons left">cloud_off</i>Erro ao consultar a API de CEP. Tente novamente.',
+            classes: 'red darken-4 rounded'
+          });
+        } finally {
+          loadingBar.style.display = 'none';
+        }
+      }
+
+      function limparCamposEndereco() {
+        enderecoInput.value = '';
+        bairroInput.value = '';
+        cidadeInput.value = '';
+        estadoInput.value = '';
+        M.updateTextFields();
+      }
+    });
+  </script>
+</body>
+</html>
